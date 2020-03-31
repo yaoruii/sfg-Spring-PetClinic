@@ -2,6 +2,7 @@ package guru.springframe.petclinic.model;
 
 import java.io.Serializable;
 
+//this is base entity
 public class BaseEntity implements Serializable {
     private Long id;
 
