@@ -4,8 +4,6 @@ import guru.springframe.petclinic.model.Owner;
 import guru.springframe.petclinic.model.Vet;
 import guru.springframe.petclinic.services.OwnerService;
 import guru.springframe.petclinic.services.VetService;
-import guru.springframe.petclinic.services.map.OwnerServiceMap;
-import guru.springframe.petclinic.services.map.VetServiceMap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +13,15 @@ public class DataLoader implements CommandLineRunner {
     //private final PetService petService;
     private final VetService vetService;
 
-    public DataLoader() {
-        //petService = new PetServiceMap();//具体实现是用map型的service实现的
-        ownerService = new OwnerServiceMap();
-        vetService = new VetServiceMap();
+//    属于hard code --->>>> 改为让spring实现：使用spring context 咯啊的it
+//    public DataLoader() {
+//        //petService = new PetServiceMap();//具体实现是用map型的service实现的
+//        ownerService = new OwnerServiceMap();
+//        vetService = new VetServiceMap();
+//    }
+    public DataLoader(OwnerService ownerService, VetService vetService) {
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
 
     @Override
@@ -31,11 +34,18 @@ public class DataLoader implements CommandLineRunner {
         ownerService.save(owner1);
 
         Owner owner2 = new Owner();
-        owner1.setId(2L);//long
-        owner1.setFirstName("yan");
-        owner1.setLastName("zhao");
+        owner2.setId(2L);//long
+        owner2.setFirstName("yan");
+        owner2.setLastName("zhao");
         //调用ownerService服务器，将其保存在服务器的map中
         ownerService.save(owner2);
+
+        Owner owner3 = new Owner();
+        owner3.setId(3L);//long
+        owner3.setFirstName("y");
+        owner3.setLastName("z");
+        //调用ownerService服务器，将其保存在服务器的map中
+        ownerService.save(owner3);
 
         System.out.print("loaded owners....");
 
